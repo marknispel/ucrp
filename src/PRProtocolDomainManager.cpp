@@ -189,6 +189,7 @@ void PRProtocolDomainManager::ProcessMessageStateActive(
          Resource().InterfaceManager().StopNetworkControlInterface();
          break;
 
+      case IONW_CONTROL_MSG_REQUEST_APP_SHUTDOWN:
       default:
          std::string errStr =
                "ProcessMessageStateActive(): Unhandled message. Id = " +
