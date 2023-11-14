@@ -8,7 +8,7 @@ bin/
 /Makefile
 
 # this project executable
-ipc-ethernet
+ucrp
 
 # Prerequisites
 *.d
