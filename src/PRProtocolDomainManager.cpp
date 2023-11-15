@@ -206,6 +206,7 @@ void PRProtocolDomainManager::ProcessMessageStateActive(
 bool PRProtocolDomainManager::EventPingMsgRcvdStateActive(std::shared_ptr<IONetworkControlMessage>& msgPtr)
 {
    // Any  actions go here.
+
    // Send response to message IONW_CONTROL_MSG_PING_INTERFACE
    uint8_t msglen = m_theIoNwControlMessageFixedLengthBytes;
    std::array<uint8_t, m_theIoNwControlMessageFixedLengthBytes> message =
@@ -228,6 +229,7 @@ bool PRProtocolDomainManager::EventPingMsgRcvdStateActive(std::shared_ptr<IONetw
 bool PRProtocolDomainManager::EventRqstIntfMsgRcvdStateActive(std::shared_ptr<IONetworkControlMessage>& msgPtr)
 {
    // Any actions go here
+
    // Send response to message IONW_CONTROL_MSG_REQUEST_INTERFACE_CONTROL
    uint8_t msglen = m_theIoNwControlMessageFixedLengthBytes;
    std::array<uint8_t, m_theIoNwControlMessageFixedLengthBytes> message =

@@ -113,45 +113,10 @@ std::string IONetworkUdpHelper::SourceIp()
 /******************************************************************************/
 bool IONetworkUdpHelper::ShutdownUdpHelper()
 {
-   /*
-      The UdpHelper usually has the receive thread blocked by the recvfrom command
-      in ReceiveMessage(). To shutdown gracefully, we can send the socket a shutdown
-      command from the UdpClient and then stop it from blocking again when we
-      decode the command.  If there is a monitor thread, alternatively it can send the
-      shutdown command locally by calling this method.
-   */
-   const std::string TX_TARGET_IP_ADDRESS("127.0.0.1");
-   bool success = false;
-   uint8_t msglen = m_theIoNwControlMessageFixedLengthBytes;
-   std::array<uint8_t, m_theIoNwControlMessageFixedLengthBytes> message =
-      {0x55,0xAA,0x00,0xff,0xaa,0x55,0xff,0x00, // sync pattern
-       0xff, 0xff, // command 0xffff  IONW_CONTROL_MSG_SHUTDOWN_INTERFACE
-       14, // number of data bytes
-       1,  // message format version
-       0x00, 0x00, //msg security number
-       0x00, 0x00, // reserved 1
-       0x00, 0x00, // msg verification value (CRC)
-       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}; // msg data
-
-   bool active = (State() ==
-            MDN::IOUDPH_STATE_ACTIVE_WITH_PERMANENT_SOCKET)
-            ? true : false;
-   if (active)
-   {
-      success = SendMessageWithTempUnconnectedSocket(
-                        message.data(),
-                        msglen,
-                        TX_TARGET_IP_ADDRESS,
-                        m_PortNumber);
-   }
-   else
-   {
-      success = true;
-   }
    m_State = IOUDPH_STATE_INACTIVE;
    Parent().EventUdpHelperInactive();
 
-   return (success);
+   return (true);
 }
 
 /******************************************************************************/
